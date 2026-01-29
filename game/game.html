@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="global_13.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="page">
+        <header class="topbar">
+            <div class="brand">
+                <span class="brand-dot"></span>
+                <a class="brand-name" href="../index.html">game</a>
+                <!-- <span class="brand-tag">PLAY</span> -->
+            </div>
+            <nav class="topbar-actions">
+                <a class="topbar-link" href="../index.html">Home</a>
+                <a class="topbar-link" href="../leaderboard.html">Leaderboard</a>
+                <button class="topbar-link" type="button" id="open-auth">Login</button>
+            </nav>
+        </header>
+
+        <main class="game-shell">
+            <section class="definition-container">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="terminal-title">Definitions</span>
+                </div>
+                <div id="definition-text" class="def-content">Achieve your highest score as possible!</div>
+            </section>
+
+            <section class="main-game-area">
+                <div class="stats-bar">
+                    <div class="stat-box"><span>LVL: </span><span id="level">1</span></div>
+                    <div class="stat-box"><span>TIME LEFT: </span><span id="timer">00:30</span></div>
+                    <div class="stat-box"><span>SCORE: </span><span id="score">0</span></div>
+                </div>
+
+                <div class="board">
+                    <div id="card-grid" class="card-grid"></div>
+                </div>
+
+                <div class="game-actions">
+                    <button class="restart-btn" onclick="location.reload()">RESTART GAME</button>
+                </div>
+            </section>
+        </main>
+
+        <aside class="sidebar" id="auth" aria-hidden="true">
+            <div class="panel">
+                <div class="panel-head">
+                    <h2 class="panel-title">Account</h2>
+                    <button class="icon-btn" type="button" id="close-auth" aria-label="Close">✕</button>
+                </div>
+
+                <div class="auth-tabs">
+                    <button class="tab-btn tab-active" type="button" data-tab="login">Login</button>
+                    <button class="tab-btn" type="button" data-tab="register">Register</button>
+                </div>
+
+                <div class="auth-body">
+                    <a class="google-cta" id="google-login" href="../oauth/google_start.php">Login with Google</a>
+
+                    <form class="auth-form" id="login-form" method="post" action="../auth/login.php">
+                        <label class="field">
+                            <span class="field-label">Username</span>
+                            <input class="field-input" name="username" autocomplete="username" required>
+                        </label>
+                        <label class="field">
+                            <span class="field-label">Password</span>
+                            <input class="field-input" type="password" name="password" autocomplete="current-password" required>
+                        </label>
+                        <button class="form-submit" type="submit">Login</button>
+                        <p class="form-hint">Login is required to submit scores.</p>
+                    </form>
+
+                    <form class="auth-form hidden" id="register-form" method="post" action="../auth/register.php">
+                        <label class="field">
+                            <span class="field-label">Username</span>
+                            <input class="field-input" name="username" autocomplete="username" required>
+                        </label>
+                        <label class="field">
+                            <span class="field-label">Password</span>
+                            <input class="field-input" type="password" name="password" autocomplete="new-password" required>
+                        </label>
+                        <label class="field">
+                            <span class="field-label">Confirm password</span>
+                            <input class="field-input" type="password" name="password2" autocomplete="new-password" required>
+                        </label>
+                        <button class="form-submit" type="submit">Create account</button>
+                        <p class="form-hint">Passwords will be hashed on the server.</p>
+                    </form>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <div class="backdrop" id="backdrop" hidden></div>
+
+    <div class="gameover-backdrop" id="gameover-backdrop" hidden></div>
+    <div class="gameover-modal" id="gameover-modal" aria-hidden="true" hidden>
+        <div class="gameover-card">
+            <div class="gameover-head">
+                <h2 class="gameover-title">GAME OVER</h2>
+            </div>
+            <p class="gameover-subtitle">Your score</p>
+            <div class="gameover-score" id="gameover-score">0</div>
+            <div class="gameover-actions">
+                <button class="restart-btn" type="button" id="gameover-restart">RESTART</button>
+                <a class="topbar-link" href="../leaderboard.html">LEADERBOARD</a>
+                <a class="topbar-link" href="../index.html">HOME</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="game1.js"></script>
+    <script src="../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en" ondragstart="return false" oncontextmenu="return false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="Image/x-icon" href="cgz.jpg">
+    <title>Leaderboard</title>
+</head>
+<body>
+    <div class="page">
+        <header class="topbar">
+            <div class="brand">
+                <span class="brand-dot"></span>
+                <a class="brand-name" href="index.html">D</a>
+                <!-- <span class="brand-tag">document</span> -->
+            </div>
+            <nav class="topbar-actions">
+                <a class="topbar-link" href="index.html">Home</a>
+                <a class="topbar-link" href="game/game.html?mode=java">Play</a>
+                <button class="topbar-link" type="button" id="open-auth">Login</button>
+            </nav>
+        </header>
+
+        <main class="home">
+            <section class="title-container">
+                <p class="alpha">TOP SCORES</p>
+                <h1 class="title">LEADERBOARD</h1>
+                <p class="subtitle">Only logged-in players can submit scores. Guests can still play.</p>
+            </section>
+
+            <section class="htp-container">
+                <h2 class="htp-title">Global ranking</h2>
+                <div class="lb-status" id="lb-status">Loading...</div>
+                <div class="lb-table-wrap">
+                    <table class="lb-table" aria-label="Leaderboard table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Player</th>
+                                <th>Score</th>
+                                <th>Updated</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lb-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <aside class="sidebar" id="auth" aria-hidden="true">
+            <div class="panel">
+                <div class="panel-head">
+                    <h2 class="panel-title">Account</h2>
+                    <button class="icon-btn" type="button" id="close-auth" aria-label="Close">✕</button>
+                </div>
+
+                <div class="auth-tabs">
+                    <button class="tab-btn tab-active" type="button" data-tab="login">Login</button>
+                    <button class="tab-btn" type="button" data-tab="register">Register</button>
+                </div>
+
+                <div class="auth-body">
+                    <a class="google-cta" id="google-login" href="oauth/google_start.php">Login with Google</a>
+
+                    <form class="auth-form" id="login-form" method="post" action="auth/login.php">
+                        <label class="field">
+                            <span class="field-label">Username</span>
+                            <input class="field-input" name="username" autocomplete="username" required>
+                        </label>
+                        <label class="field">
+                            <span class="field-label">Password</span>
+                            <input class="field-input" type="password" name="password" autocomplete="current-password" required>
+                        </label>
+                        <button class="form-submit" type="submit">Login</button>
+                        <p class="form-hint">Login is required to submit scores.</p>
+                    </form>
+
+                    <form class="auth-form hidden" id="register-form" method="post" action="auth/register.php">
+                        <label class="field">
+                            <span class="field-label">Username</span>
+                            <input class="field-input" name="username" autocomplete="username" required>
+                        </label>
+                        <label class="field">
+                            <span class="field-label">Password</span>
+                            <input class="field-input" type="password" name="password" autocomplete="new-password" required>
+                        </label>
+                        <label class="field">
+                            <span class="field-label">Confirm password</span>
+                            <input class="field-input" type="password" name="password2" autocomplete="new-password" required>
+                        </label>
+                        <button class="form-submit" type="submit">Create account</button>
+                        <p class="form-hint">Passwords will be hashed on the server.</p>
+                    </form>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <div class="backdrop" id="backdrop" hidden></div>
+
+    <script>
+        const statusEl = document.getElementById('lb-status');
+        const bodyEl = document.getElementById('lb-body');
+
+        function escapeHtml(s) {
+            return String(s)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        function renderRows(rows) {
+            if (!rows || rows.length === 0) {
+                bodyEl.innerHTML = '<tr><td colspan="4">No scores yet.</td></tr>';
+                return;
+            }
+
+            bodyEl.innerHTML = rows.map((r, idx) => {
+                const rank = idx + 1;
+                const username = escapeHtml(r.username ?? 'Unknown');
+                const score = escapeHtml(r.score ?? 0);
+                const updated = escapeHtml(r.updated_at ?? '-');
+                return `
+                    <tr>
+                        <td>${rank}</td>
+                        <td>${username}</td>
+                        <td>${score}</td>
+                        <td>${updated}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function loadLeaderboard() {
+            statusEl.textContent = 'Loading...';
+            try {
+                const res = await fetch('api/leaderboard.php', { cache: 'no-store' });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const data = await res.json();
+
+                if (!data || data.ok !== true) throw new Error('Bad response');
+                renderRows(data.rows);
+                statusEl.textContent = 'Updated.';
+            } catch (e) {
+                renderRows([]);
+                statusEl.textContent = 'Leaderboard server not connected yet.';
+            }
+        }
+
+        loadLeaderboard();
+    </script>
+
+    <script src="assets/site.js"></script>
+</body>
+</html>
+

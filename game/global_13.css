@@ -1,0 +1,500 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    background: rgb(30, 32, 54);
+    font-family: 'Courier New', monospace;
+    overflow-x: hidden;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border-bottom: 1px solid rgba(57, 59, 77, 0.9);
+    background: rgba(15, 16, 28, 0.65);
+    backdrop-filter: blur(8px);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #666fba;
+    box-shadow: 0 0 0 4px rgba(102, 111, 186, 0.22);
+}
+
+.brand-name {
+    color: #cfd3ff;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.brand-tag {
+    color: #666fba;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border: 1px solid rgba(102, 111, 186, 0.4);
+    border-radius: 999px;
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topbar-link {
+    text-decoration: none;
+    color: rgb(199,199,199);
+    background-color: rgba(15, 16, 28, 0.85);
+    border: solid 2px rgb(57, 59, 77);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-weight: 700;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.topbar-link:hover {
+    background-color: rgb(29, 31, 59);
+    transform: translateY(-1px);
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(380px, calc(100vw - 32px));
+    transform: translateX(110%);
+    transition: transform 0.2s ease;
+    z-index: 50;
+    padding: 18px;
+}
+
+.sidebar.sidebar-open {
+    transform: translateX(0);
+}
+
+.sidebar .panel {
+    height: calc(100vh - 36px);
+    overflow: auto;
+    background: rgba(15, 16, 28, 0.95);
+    border: 2px solid rgb(57, 59, 77);
+    border-radius: 18px;
+    padding: 16px;
+}
+
+.panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.panel-title {
+    color: #cfd3ff;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.icon-btn {
+    background: rgba(29, 31, 59, 0.6);
+    color: #cfd3ff;
+    border: 2px solid rgb(57, 59, 77);
+    border-radius: 12px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: 900;
+}
+
+.auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 2px solid rgb(57, 59, 77);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.tab-btn {
+    padding: 10px 12px;
+    background: rgba(29, 31, 59, 0.35);
+    border: 0;
+    color: rgba(199, 199, 199, 0.9);
+    cursor: pointer;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tab-btn.tab-active {
+    background: rgba(102, 111, 186, 0.25);
+    color: #cfd3ff;
+}
+
+.google-cta {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border: 2px solid rgb(57, 59, 77);
+    color: rgb(199, 199, 199);
+    background: rgba(29, 31, 59, 0.6);
+    margin-bottom: 12px;
+}
+
+.google-cta:hover {
+    background-color: rgb(29, 31, 59);
+}
+
+.auth-form {
+    display: grid;
+    gap: 12px;
+}
+
+.field {
+    display: grid;
+    gap: 6px;
+}
+
+.field-label {
+    color: rgba(199, 199, 199, 0.85);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.field-input {
+    background: rgba(30, 32, 54, 0.65);
+    border: 2px solid rgb(57, 59, 77);
+    border-radius: 12px;
+    padding: 12px 12px;
+    color: #cfd3ff;
+    outline: none;
+}
+
+.field-input:focus {
+    border-color: rgba(102, 111, 186, 0.85);
+    box-shadow: 0 0 0 4px rgba(102, 111, 186, 0.18);
+}
+
+.form-submit {
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border: 2px solid rgb(57, 59, 77);
+    color: #0b101a;
+    background: linear-gradient(135deg, #cfd3ff, #22d3ee);
+    cursor: pointer;
+}
+
+.form-hint {
+    color: rgba(199, 199, 199, 0.75);
+    line-height: 1.5;
+    font-size: 12px;
+}
+
+.hidden {
+    display: none;
+}
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 40;
+}
+
+.gameover-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 80;
+}
+
+.gameover-modal {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 90;
+    padding: 18px;
+}
+
+.gameover-card {
+    width: min(520px, 100%);
+    background: rgba(15, 16, 28, 0.95);
+    border: 2px solid rgba(57, 59, 77, 0.95);
+    border-radius: 18px;
+    padding: 18px;
+    text-align: center;
+}
+
+.gameover-title {
+    color: #cfd3ff;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.gameover-subtitle {
+    color: rgba(199, 199, 199, 0.85);
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+.gameover-score {
+    color: #22d3ee;
+    font-weight: 900;
+    font-size: 44px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+}
+
+.gameover-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.gameover-actions .restart-btn {
+    margin-top: 0;
+    width: auto;
+}
+
+.game-shell {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 18px;
+    width: min(1100px, calc(100% - 32px));
+    margin: 18px auto;
+    align-items: start;
+    padding-bottom: 28px;
+}
+
+.main-game-area {
+    background: rgba(15, 16, 28, 0.55);
+    border: 2px solid rgba(57, 59, 77, 0.9);
+    border-radius: 18px;
+    padding: 14px;
+}
+
+.board {
+    background: rgba(15, 16, 28, 0.65);
+    border: 2px solid rgba(57, 59, 77, 0.9);
+    border-radius: 18px;
+    padding: 14px;
+}
+
+.stats-bar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.stat-box {
+    background: rgba(30, 32, 54, 0.35);
+    border: 2px solid rgba(57, 59, 77, 0.9);
+    border-radius: 14px;
+    padding: 10px 12px;
+}
+
+.game-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px;
+    width: 100%;
+    max-width: 480px;
+    justify-items: center;
+}
+
+.card {
+    width: 95px;
+    height: 95px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s;
+    cursor: pointer;
+}
+
+.card.flipped { transform: rotateY(180deg); }
+
+.card-back, .card-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.card-back {
+    background-image: url('../Images/Cards/redexample.png');
+    background-size: cover;
+    background-position: center;
+    border: 2px solid rgb(57, 59, 77);
+}
+
+.card-front {
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: white;
+    font-weight: bold;
+}
+
+.definition-container {
+    background-color: rgb(15, 16, 28);
+    width: 100%;
+    height: 240px;
+    border: solid 2px rgb(57, 59, 77);
+    border-radius: 12px;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.def-content {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #e0e0e0;
+    line-height: 1.6;
+    padding: 0 15px 15px 15px;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.terminal-header {
+    background-color: rgba(30, 32, 54, 0.8);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(57, 59, 77);
+    gap: 6px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.terminal-title {
+    color: #666fba;
+    font-size: 11px;
+    margin-left: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.shock-container {
+    border-color: #005d0b !important;
+    box-shadow: 0 0 20px #00ff0066;
+    transform: scale(1.02);
+}
+
+.shock-text {
+    color: #00ff1e !important;
+    text-shadow: 0 0 8px #01770166;
+}
+
+@keyframes containerFlash {
+    0% { border-color: #fff; transform: scale(1); }
+    50% { border-color: #00f7ff; box-shadow: 0 0 30px #00f7ff; transform: scale(1.05); }
+    100% { border-color: rgb(57, 59, 77); transform: scale(1); }
+}
+
+@keyframes textFlicker {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 1; }
+}
+
+.restart-btn {
+    margin-top: 30px;
+    height: 50px;
+    width: 200px;
+    background-color: rgb(15, 16, 28);
+    border: solid 2px rgb(57, 59, 77);
+    color: rgb(199,199,199);
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.stat-box span {
+    color: #fff;
+    font-weight: bold;
+}
+
+.restart-btn:hover {
+    background-color: rgb(29, 31, 59);
+    transform: scale(1.05);
+}
+
+.star-particle {
+    position: absolute;
+    pointer-events: none;
+    width: 18px;
+    height: 18px;
+    background-image: url('../Images/Effects/star.png');
+    background-size: contain;
+    z-index: 5;
+    animation: box-explode 1s ease-out forwards;
+}
+
+@keyframes box-explode {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0) rotate(180deg); opacity: 0; }
+}
+
+.color-1 { background-color: #1e3a8a; border: 3px solid #3b82f6; }
+.color-2 { background-color: #064e3b; border: 3px solid #10b981; }
+.color-3 { background-color: #4c1d95; border: 3px solid #8b5cf6; }
+.color-4 { background-color: #78350f; border: 3px solid #f59e0b; }
+.color-5 { background-color: #831843; border: 3px solid #f472b6; }
+.color-6 { background-color: #164e63; border: 3px solid #22d3ee; }
+
+@media (max-width: 768px) {
+    .game-shell { grid-template-columns: 1fr; }
+    .card-grid { grid-template-columns: repeat(3, 1fr); width: 100%; }
+    .card { width: 85px; height: 85px; }
+    .restart-btn { width: 80vw; }
+}
