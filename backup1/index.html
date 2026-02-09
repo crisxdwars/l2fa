@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" oncontextmenu="return false" ondragstart="return false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div id="backdrop1" class="backdrop0"></div>
+    <div class="hidden" id="option-menu">
+        <div class="top-option">
+            <i class="fa-solid fa-gear"></i>
+            <h1 class="option-title">Option</h1>
+            <button class="closebtn" onclick="options()">X</button>
+        </div>
+        <div class="option-container">
+            <div class="theme-box">
+                <h1>Personalization</h1>
+                <p>Theme color:
+                    <div class="selectbox">
+                        <select data-theme-selector>
+                            <option value="dark" selected>Dark</option>
+                            <option value="light">Light</option>
+                            <option value="pink">Pink</option>
+                        </select>
+                    </div>
+                </p>
+            </div>
+        </div>
+        
+    </div>
+    <div class="title-container">
+        <h1 class="title_text">*Insert Title Here!*</h1>
+        <p class="welcome-username">Welcome *<span class="username-text">Username</span>*!</p>
+    </div>
+
+    <main class="container">
+        <div class="button-container">
+            <button class="buttons" id="play"><i class="fa-solid fa-play"></i></button>
+            <button class="buttons"> Leaderboard</button>
+            <div class="login-option">
+                <button onclick="options()" class="option"><i id="gear" class="fa-solid fa-gear"></i></button>
+                <button class="login-logout">Login</button>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
